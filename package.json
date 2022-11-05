@@ -1,17 +1,14 @@
 {
   "name": "tpfinal_admin",
   "version": "1.0.0",
-  "description": "",
+  "description": "Trabajo final de administración de bases de datos.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LushoGV/TPFinal_admin.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Octavio Cossy Torquati, Gonzalo Grágeda, Luciano Viola, Franco Bernardi, Lautaro Caballero",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/LushoGV/TPFinal_admin/issues"
