@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 
 import { useModal } from '../../Hooks';
 import { Person } from '../../components';
-// import { AppUseContext } from '../../context';
+// import { AppUseContext } from '../../context'; // descomentar
 
 const Alumnos = () => {
   const [Modal, openModal] = useModal();
-  // const { actions } = AppUseContext();
+  // const { actions } = AppUseContext(); // descomentar
 
   const handleCreate = () => {
     openModal();
   };
 
   useEffect(() => {
-    // actions.getAlumnos();
+    // actions.getAlumnos(); // Pegar a la api (descomentar)
   }, []);
 
   return (

@@ -10,15 +10,17 @@ export const Provider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const getAlumnos = async () => {
-    const { data, status } = await api.get('alumnos');
+    const call = await api.get('alumnos');
 
-    if (status !== 'ok') {
-      setError(data);
+    console.log(call.data);
+
+    if (call.data !== 'ok') {
+      setError(call.data);
 
       return;
     }
 
-    setAlumnos(data);
+    setAlumnos(call.data);
   };
 
   const state = { alumnos, error };
