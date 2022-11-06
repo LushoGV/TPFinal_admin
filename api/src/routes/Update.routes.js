@@ -1,55 +1,69 @@
 import { Router } from "express";
 import { connectDb } from "../database.js";
 import getErrorMessage from "../helpers/errorHandling.js";
-import sql from "mssql";
 import { TABLES } from "../helpers/tables.js";
+
 const router = Router();
 
-router.put('/update/:table/:id', (req, res)=>{
+router.put("/update/:table/:id", async (req, res) => {
+  const { table, id } = req.params;
 
-    const {table, id} = req.params
-    createQuery(table, id, req.body)
-  
+  if (!TABLES.includes(table.toLowerCase())) {
+    return res
+      .status(404)
+      .json({ status: "NOT_FOUND", message: "TABLA NO ENCONTRADA" });
+  }
 
-    return res.status(200).json('updated')
-})
+  let queryString = createQuery(table, id, req.body);
+
+  try {
+    const bool = await connectDb();
+    const result = await bool.query(queryString);
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: getErrorMessage(error.originalError.info.number),
+    });
+  }
+
+  return res
+    .status(200)
+    .json({ status: "ok", message: "Actualizado correctamente." });
+});
 
 const createQuery = (table, id, body) => {
-    let strQuery = `UPDATE ${table} SET`
- 
-    let bodyArray = Object.entries(body)
-    bodyArray.map((element) => {
-        strQuery += ` ${element[0]} = ${element[1]},`
-    })
+  let strQuery = `UPDATE ${table} SET`;
 
-    strQuery = strQuery.slice(0, -1)
-    
-    switch (table) {
-        case "alumnos":
-            strQuery += ` WHERE nro_legajo_a = ${id}`
-            break;
+  let bodyArray = Object.entries(body);
+  bodyArray.map((element) => {
+    strQuery += ` ${element[0]} = ${element[1]},`;
+  });
 
-        case "profesores":
-            strQuery += ` WHERE nro_legajo_p = ${id}`
-            break;
+  strQuery = strQuery.slice(0, -1);
 
-        case "materias":
-            strQuery += ` WHERE cod_materia = ${id}`
-            break;
-        
-        case "examenes":
-            let keysArray = id.split("&")
-            // /UPDATE/examenes/nro_legajo_a & cod_mat & cod_turno
-                strQuery += ` WHERE cod_materia = ${id}`
-        break;
+  switch (table) {
+    case "alumnos":
+      strQuery += ` WHERE nro_legajo_a = ${id}`;
+      break;
 
-        default:
-            break;
-    }
+    case "profesores":
+      strQuery += ` WHERE nro_legajo_p = ${id}`;
+      break;
 
-    console.log(strQuery)
+    case "materias":
+      strQuery += ` WHERE cod_materia = ${id}`;
+      break;
 
-}
+    case "examenes":
+      let keysArray = id.split("&");
+      strQuery += ` WHERE  nro_legajo_a = ${keysArray[0]} AND cod_mat = '${keysArray[1]}' AND cod_turno = '${keysArray[2]}'`;
+      break;
 
+    default:
+      break;
+  }
+
+  return strQuery;
+};
 
 export default router;
