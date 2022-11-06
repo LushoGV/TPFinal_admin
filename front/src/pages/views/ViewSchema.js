@@ -1,11 +1,22 @@
 import { PartialRoutes, Routes } from '../../models';
 
+// Contiene la data correspondiente para cada view
 const ViewSchema = [
   {
     route: PartialRoutes.ALUMNOS,
     title: 'Alumnos',
-    create: `${Routes.VIEWS}/${PartialRoutes.ALUMNOS}/create`,
-    editCurrent: `${Routes.VIEWS}/${PartialRoutes.ALUMNOS}/edit`,
+    buttons: {
+      create: {
+        url: `${Routes.VIEWS}/${PartialRoutes.ALUMNOS}/create`,
+        text: 'Crear nuevo Alumno',
+      },
+      edit: {
+        url: `${Routes.VIEWS}/${PartialRoutes.ALUMNOS}/edit`,
+        text: 'Editar Alumno',
+      },
+      bg: 'bg-emerald-500',
+      bgHover: 'hover:bg-emerald-600',
+    },
     table: {
       columns: [
         { Header: 'Nro. Legajo', accessor: 'nro_legajo_a' },
@@ -16,8 +27,18 @@ const ViewSchema = [
   {
     route: PartialRoutes.PROFESORES,
     title: 'Profesores',
-    create: `${Routes.VIEWS}/${PartialRoutes.PROFESORES}/create`,
-    editCurrent: `${Routes.VIEWS}/${PartialRoutes.PROFESORES}/edit`,
+    buttons: {
+      create: {
+        url: `${Routes.VIEWS}/${PartialRoutes.PROFESORES}/create`,
+        text: 'Crear nuevo Profesor',
+      },
+      edit: {
+        url: `${Routes.VIEWS}/${PartialRoutes.PROFESORES}/edit`,
+        text: 'Editar Profesor',
+      },
+      bg: 'bg-violet-500',
+      bgHover: 'hover:bg-violet-600',
+    },
     table: {
       columns: [
         { Header: 'Nro. Legajo', accessor: 'nro_legajo_p' },
@@ -28,8 +49,18 @@ const ViewSchema = [
   {
     route: PartialRoutes.MATERIAS,
     title: 'Materias',
-    create: `${Routes.VIEWS}/${PartialRoutes.MATERIAS}/create`,
-    editCurrent: `${Routes.VIEWS}/${PartialRoutes.MATERIAS}/edit`,
+    buttons: {
+      create: {
+        url: `${Routes.VIEWS}/${PartialRoutes.MATERIAS}/create`,
+        text: 'Crear nueva Materia',
+      },
+      edit: {
+        url: `${Routes.VIEWS}/${PartialRoutes.MATERIAS}/edit`,
+        text: 'Editar Materia',
+      },
+      bg: 'bg-orange-500',
+      bgHover: 'hover:bg-orange-600',
+    },
     table: {
       columns: [
         { Header: 'Materia', accessor: 'desc_mat' },
@@ -40,8 +71,18 @@ const ViewSchema = [
   {
     route: PartialRoutes.EXAMENES,
     title: 'Examenes',
-    create: `${Routes.VIEWS}/${PartialRoutes.EXAMENES}/create`,
-    editCurrent: `${Routes.VIEWS}/${PartialRoutes.EXAMENES}/edit`,
+    buttons: {
+      create: {
+        url: `${Routes.VIEWS}/${PartialRoutes.EXAMENES}/create`,
+        text: 'Crear nuevo Examen',
+      },
+      edit: {
+        url: `${Routes.VIEWS}/${PartialRoutes.EXAMENES}/edit`,
+        text: 'Editar Examen',
+      },
+      bg: 'bg-pink-500',
+      bgHover: 'hover:bg-pink-600',
+    },
     table: {
       columns: [
         { Header: 'Codigo de Materia', accessor: 'cod_mat' },

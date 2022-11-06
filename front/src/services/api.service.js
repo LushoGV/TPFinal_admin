@@ -1,11 +1,11 @@
-const url = null;
+const url = 'http://localhost:3000/api/';
 
 const api = {
   get: async (route) => {
     try {
       const req = await fetch(`${url}/${route}`);
 
-      return await req.json();
+      return { data: await req.json(), status: req.status };
     } catch (error) {
       if (error.message === 'Failed to fetch') window.location.reload();
       throw error;
@@ -21,7 +21,7 @@ const api = {
         body: JSON.stringify(data),
       });
 
-      return await req.json();
+      return { data: await req.json(), status: req.status };
     } catch (error) {
       if (error.message === 'Failed to fetch') window.location.reload();
       throw error;

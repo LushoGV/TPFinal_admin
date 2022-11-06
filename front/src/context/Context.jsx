@@ -8,11 +8,12 @@ const MyContext = createContext();
 export const Provider = ({ children }) => {
   const [itemlist, setItemList] = useState([]);
   const [error, setError] = useState(null);
+  const [current, setCurrent] = useState({});
 
   const getItems = async (view) => {
-    const { data, status } = await api.get(view);
+    const { data, status } = await api.get(`read/${view}`);
 
-    if (status !== 'ok') {
+    if (status !== 200) {
       setError(data);
 
       return;
@@ -21,8 +22,8 @@ export const Provider = ({ children }) => {
     setItemList(data);
   };
 
-  const state = { itemlist, error };
-  const actions = { getItems };
+  const state = { itemlist, error, current };
+  const actions = { getItems, setError, setCurrent };
 
   return (
     <MyContext.Provider value={{ state, actions }}>
@@ -31,7 +32,7 @@ export const Provider = ({ children }) => {
   );
 };
 
-export const AppUseContext = () => {
+export const useAppContext = () => {
   const { state, actions } = useContext(MyContext);
 
   return { state, actions };
