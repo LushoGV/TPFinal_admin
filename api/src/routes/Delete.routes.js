@@ -26,7 +26,7 @@ router.delete("/delete/:table/:id", async (req, res) => {
       break;
 
     case "materias":
-      queryString += ` WHERE cod_materia = ${id}`;
+      queryString += ` WHERE cod_materia = '${id}'`;
       break;
 
     case "examenes":

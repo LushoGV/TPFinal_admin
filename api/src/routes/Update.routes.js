@@ -51,7 +51,7 @@ const createQuery = (table, id, body) => {
       break;
 
     case "materias":
-      strQuery += ` WHERE cod_materia = ${id}`;
+      strQuery += ` WHERE cod_materia = '${id}'`;
       break;
 
     case "examenes":
