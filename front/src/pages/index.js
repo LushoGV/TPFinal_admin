@@ -1,2 +1,2 @@
-export * from './alumnos';
+export * from './views';
 export * from './home';

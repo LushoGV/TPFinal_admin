@@ -1,11 +1,11 @@
-import Routes from '../../models/routes';
+import { PartialRoutes, Routes } from '../../models';
 import { useNavigate } from '../../Hooks';
 
 const MenuItems = [
-  { title: 'Alumnos', url: Routes.ALUMNOS },
-  { title: 'Profesores', url: Routes.PROFESORES },
-  { title: 'Materias', url: Routes.MATERIAS },
-  { title: 'Examenes', url: Routes.EXAMENES },
+  { title: 'Alumnos', url: `${Routes.VIEWS}/${PartialRoutes.ALUMNOS}` },
+  { title: 'Profesores', url: `${Routes.VIEWS}/${PartialRoutes.PROFESORES}` },
+  { title: 'Materias', url: `${Routes.VIEWS}/${PartialRoutes.MATERIAS}` },
+  { title: 'Examenes', url: `${Routes.VIEWS}/${PartialRoutes.EXAMENES}` },
 ];
 
 const Navbar = () => {

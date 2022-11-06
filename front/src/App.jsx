@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes as RRoutes } from 'react-router-dom';
 
 import { Routes } from './models';
-import { Home, Alumnos } from './pages';
+import { Home, Views } from './pages';
 import { Layout } from './ui';
 
 const App = () => {
@@ -10,8 +10,9 @@ const App = () => {
       <RRoutes>
         <Route element={<Layout />}>
           <Route element={<Home />} path={Routes.HOME} />
-          <Route element={<Alumnos />} path={Routes.ALUMNOS} />
+          <Route element={<Views />} path={`${Routes.VIEWS}/:view`} />
         </Route>
+        <Route element={<p>404</p>} path={'*'} />
       </RRoutes>
     </BrowserRouter>
   );

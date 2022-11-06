@@ -6,25 +6,23 @@ import { api } from '../services';
 const MyContext = createContext();
 
 export const Provider = ({ children }) => {
-  const [alumnos, setAlumnos] = useState([]);
+  const [itemlist, setItemList] = useState([]);
   const [error, setError] = useState(null);
 
-  const getAlumnos = async () => {
-    const call = await api.get('alumnos');
+  const getItems = async (view) => {
+    const { data, status } = await api.get(view);
 
-    console.log(call.data);
-
-    if (call.data !== 'ok') {
-      setError(call.data);
+    if (status !== 'ok') {
+      setError(data);
 
       return;
     }
 
-    setAlumnos(call.data);
+    setItemList(data);
   };
 
-  const state = { alumnos, error };
-  const actions = { getAlumnos };
+  const state = { itemlist, error };
+  const actions = { getItems };
 
   return (
     <MyContext.Provider value={{ state, actions }}>
