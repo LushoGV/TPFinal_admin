@@ -1,10 +1,10 @@
 import sql from "mssql";
 
 const sqlConfig = {
-  user: "userprueba",
+  user: "userPrueba",
   password: "prueba",
   database: "Facultad",
-  server: "localhost\\SQLEXPRESS",
+  server: "localhost",
   port: 1433,
   options: {
     encrypt: false,
@@ -15,6 +15,7 @@ const sqlConfig = {
 export const connectDb = async () => {
   try {
     const pool = await sql.connect(sqlConfig);
+    console.log("conectado")
     return pool;
   } catch (err) {
     console.log(err);
