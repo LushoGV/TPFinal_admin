@@ -7,7 +7,6 @@ const api = {
 
       return { data: await req.json(), status: req.status };
     } catch (error) {
-      if (error.message === 'Failed to fetch') window.location.reload();
       throw error;
     }
   },
@@ -23,7 +22,6 @@ const api = {
 
       return { data: await req.json(), status: req.status };
     } catch (error) {
-      if (error.message === 'Failed to fetch') window.location.reload();
       throw error;
     }
   },

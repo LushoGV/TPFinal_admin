@@ -17,7 +17,9 @@ const Navbar = () => {
   return (
     <div className="p-6 border-b-2">
       <div className="m-auto max-w-4xl flex">
-        <p className="flex-1 text-2xl font-semibold">Gestión de Exámenes</p>
+        <p className="flex-1 text-2xl font-semibold">
+          Planificador de Exámenes
+        </p>
         <div className="flex items-center">
           {MenuItems.map((item) => (
             <button
