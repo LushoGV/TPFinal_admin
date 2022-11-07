@@ -6,7 +6,7 @@
 # Rutas
 ### Ruta Read:
 * Metodo GET
-* URL:  /doctypes devuelve la tabla Tipo_doc <br /> /titles devuelve la tabla Titulos <br /> /read/{table} devuelve vistas 
+* URL:  /doctypes = devuelve la tabla Tipo_doc <br /> /titles = devuelve la tabla Titulos <br /> /count_turnos = devuelve cantidad de inscriptos por turno <br /> /read/{table} = devuelve vistas 
 * table = alumnos || profesores ||materias || examenes || turnos
 	
  
