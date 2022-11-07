@@ -1,1 +1,1 @@
-export const TABLES = ["alumnos", "profesores", "examenes", "materias"];
+export const TABLES = ["alumnos", "profesores", "examenes", "materias","turnos"];
