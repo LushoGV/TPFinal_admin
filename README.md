@@ -42,9 +42,10 @@
 CREATE VIEW [dbo].[View_alumnos]
 AS
 SELECT        dbo.Alumnos.nro_legajo_a, dbo.Alumnos.ape_nomb, dbo.Tipo_Doc.desc_doc, dbo.Alumnos.nro_doc, dbo.Alumnos.direccion, dbo.Alumnos.email, dbo.Alumnos.telefono, dbo.Alumnos.sexo, dbo.Alumnos.fec_nac, 
-                         dbo.Alumnos.est_civil
+                         dbo.Alumnos.est_civil, dbo.Alumnos.cod_doc
 FROM            dbo.Alumnos INNER JOIN
                          dbo.Tipo_Doc ON dbo.Alumnos.cod_doc = dbo.Tipo_Doc.cod_doc
+GO
 ```
 
 
@@ -95,3 +96,18 @@ FROM            dbo.Examenes INNER JOIN
 GO
   
  ```
+
+ ### turnos
+ 
+ ```
+ CREATE VIEW [dbo].[View_turnos]
+AS
+SELECT        dbo.Turnos.desc_turno, dbo.Materias.desc_mat, dbo.Profesores.ape_nomb, dbo.PLANIFICACION.fecha_examen, dbo.Examenes.cod_mat, dbo.Examenes.nota
+FROM            dbo.Materias INNER JOIN
+                         dbo.Profesores ON dbo.Materias.nro_legajo_p = dbo.Profesores.nro_legajo_p INNER JOIN
+                         dbo.Turnos INNER JOIN
+                         dbo.Examenes ON dbo.Turnos.cod_turno = dbo.Examenes.cod_turno INNER JOIN
+                         dbo.PLANIFICACION ON dbo.Turnos.cod_turno = dbo.PLANIFICACION.cod_turno ON dbo.Materias.cod_materia = dbo.Examenes.cod_mat AND dbo.Materias.cod_materia = dbo.PLANIFICACION.cod_mat
+GO
+ ```
+ 
