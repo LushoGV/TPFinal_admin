@@ -40,18 +40,10 @@ router.get("/titles", async (req, res) => {
   return res.status(200).json(result.recordset);
 });
 
-// count_turnos SELECT count(*), desc_turno FROM View_turnos group by desc_turno
-
 router.get("/count_turnos", async (req, res)=> {
   const bool = await connectDb()
   const result = await bool.query(`SELECT count(*) as 'Cantidad', desc_turno FROM View_turnos group by desc_turno`)
   return res.status(200).json(result.recordset);
 })
-
-
-// select count(*) as'Cantidad', desc_turno from view_turnos where nota >= 7 group by desc_turno
-// SELECT count(*) as'Cantidad', desc_turno FROM View_turnos group by desc_turno
-
-// Se quiere conocer el porcentaje de alumnos que aprobaron el examen para cada turno
 
 export default router;
