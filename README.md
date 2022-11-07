@@ -57,12 +57,12 @@ GO
 CREATE VIEW [dbo].[View_profesores]
 AS
 SELECT        dbo.Profesores.nro_legajo_p, dbo.Profesores.ape_nomb, dbo.Tipo_Doc.desc_doc, dbo.Profesores.nro_doc, dbo.Profesores.direccion, dbo.Profesores.email, dbo.Profesores.telefono, dbo.Profesores.sexo, 
-                         dbo.Profesores.fec_nac, dbo.Profesores.est_civil, dbo.TITULOS.DESC_TITULO, dbo.Tipo_Doc.cod_doc, dbo.TITULOS.COD_TITULOS
+                         dbo.Profesores.fec_nac, dbo.Profesores.est_civil, dbo.TITULOS.DESC_TITULO, dbo.Tipo_Doc.cod_doc, dbo.Profesores.cod_titulo
 FROM            dbo.Profesores INNER JOIN
                          dbo.Tipo_Doc ON dbo.Profesores.cod_doc = dbo.Tipo_Doc.cod_doc LEFT OUTER JOIN
                          dbo.TITULOS ON dbo.TITULOS.COD_TITULOS = dbo.Profesores.cod_titulo
 GROUP BY dbo.Profesores.nro_legajo_p, dbo.Profesores.ape_nomb, dbo.Tipo_Doc.desc_doc, dbo.Profesores.nro_doc, dbo.Profesores.direccion, dbo.Profesores.email, dbo.Profesores.telefono, dbo.Profesores.sexo, 
-                         dbo.Profesores.fec_nac, dbo.Profesores.est_civil, dbo.TITULOS.DESC_TITULO, dbo.Tipo_Doc.cod_doc, dbo.TITULOS.COD_TITULOS
+                         dbo.Profesores.fec_nac, dbo.Profesores.est_civil, dbo.TITULOS.DESC_TITULO, dbo.Tipo_Doc.cod_doc, dbo.Profesores.cod_titulo
 GO
 ```
 
