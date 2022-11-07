@@ -91,5 +91,7 @@ SELECT        dbo.Materias.desc_mat, dbo.Turnos.desc_turno, dbo.Alumnos.ape_nomb
 FROM            dbo.Examenes INNER JOIN
                          dbo.Alumnos ON dbo.Examenes.nro_legajo_a = dbo.Alumnos.nro_legajo_a INNER JOIN
                          dbo.Turnos ON dbo.Examenes.cod_turno = dbo.Turnos.cod_turno INNER JOIN
+			 dbo.Materias ON dbo.Materias.cod_materia = dbo.Examenes.cod_mat
+GO
   
  ```
