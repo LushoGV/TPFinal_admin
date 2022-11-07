@@ -13,10 +13,19 @@ router.get("/read/:table", async (req, res) => {
       .status(404)
       .json({ status: "NOT_FOUND", message: "TABLA NO ENCONTRADA" });
   }
+  try {
+    const bool = await connectDb();
+    console.log(bool);
+    const result = await bool.query(`select * from View_${table}`);
+    console.log(result);
 
-  const bool = await connectDb();
-  const result = await bool.query(`select * from View_${table}`);
-  return res.status(200).json(result.recordset);
+    return res.status(200).json(result.recordset);
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: getErrorMessage(error.originalError.info.number),
+    });
+  }
 });
 
 router.get("/doctypes", async (req, res) => {
@@ -24,4 +33,25 @@ router.get("/doctypes", async (req, res) => {
   const result = await bool.query(`select * from Tipo_Doc`);
   return res.status(200).json(result.recordset);
 });
+
+router.get("/titles", async (req, res) => {
+  const bool = await connectDb();
+  const result = await bool.query(`select * from Titulos`);
+  return res.status(200).json(result.recordset);
+});
+
+// count_turnos SELECT count(*), desc_turno FROM View_turnos group by desc_turno
+
+router.get("/count_turnos", async (req, res)=> {
+  const bool = await connectDb()
+  const result = await bool.query(`SELECT count(*) as 'Cantidad', desc_turno FROM View_turnos group by desc_turno`)
+  return res.status(200).json(result.recordset);
+})
+
+
+// select count(*) as'Cantidad', desc_turno from view_turnos where nota >= 7 group by desc_turno
+// SELECT count(*) as'Cantidad', desc_turno FROM View_turnos group by desc_turno
+
+// Se quiere conocer el porcentaje de alumnos que aprobaron el examen para cada turno
+
 export default router;
