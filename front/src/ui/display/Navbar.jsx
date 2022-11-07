@@ -15,8 +15,8 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="p-6 border-b-2">
-      <div className="m-auto max-w-4xl flex">
+    <div className="border-b-2">
+      <div className="p-6 m-auto max-w-7xl flex">
         <p className="flex-1 text-2xl font-semibold">
           Planificador de Exámenes
         </p>

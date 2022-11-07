@@ -1,1 +1,1 @@
-export * from './normalizeText.adapter';
+export * from './parseSelect.adapter';

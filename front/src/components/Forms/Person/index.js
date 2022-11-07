@@ -1,2 +1,2 @@
 export { default as Person } from './Person';
-export { default as ValidationSchema } from './ValidationSchema';
+export * from './ValidationSchema';

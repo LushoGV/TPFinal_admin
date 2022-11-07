@@ -12,12 +12,12 @@ const SelectControl = ({
   ...rest
 }) => (
   <div className="mb-4 flex flex-col">
-    <label className="text-gray-600 text-md font-semibold block" htmlFor={name}>
+    <label className="text-gray-600 font-semibold block" htmlFor={name}>
       {label}
     </label>
     <Field
       as={'select'}
-      className={`w-full  block p-1 bg-gray-100 border rounded-md 
+      className={`w-full p-2 bg-gray-100 border rounded-md 
           outline-none text-gray-600 ${styles} focus:ring-2 ring-${ringcolor}
           ${
             errors !== null
@@ -30,8 +30,8 @@ const SelectControl = ({
     >
       <option value={''}>----</option>
       {options.map((option) => (
-        <option key={option.nombre} value={option.id}>
-          {option.nombre}
+        <option key={option.name} value={option.id}>
+          {option.name}
         </option>
       ))}
     </Field>

@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api/';
+const url = 'http://localhost:3000/api';
 
 const api = {
   get: async (route) => {
@@ -18,6 +18,32 @@ const api = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+      });
+
+      return { data: await req.json(), status: req.status };
+    } catch (error) {
+      throw error;
+    }
+  },
+  put: async (route, data, id) => {
+    try {
+      const req = await fetch(`${url}/${route}/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      return { data: await req.json(), status: req.status };
+    } catch (error) {
+      throw error;
+    }
+  },
+  delete: async (route, id) => {
+    try {
+      const req = await fetch(`${url}/${route}/${id}`, {
+        method: 'DELETE',
       });
 
       return { data: await req.json(), status: req.status };

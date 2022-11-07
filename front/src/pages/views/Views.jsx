@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Table } from '../../components';
+import { Examenes, Materias, Person, Table } from '../../components';
 import { useAppContext } from '../../context';
 import { useModal, useNavigate } from '../../Hooks';
 import { PartialRoutes } from '../../models';
@@ -15,6 +15,13 @@ const Views = () => {
   const { go } = useNavigate();
   const { schemas } = useViewSchema();
   const [Modal, openModal, closeModal] = useModal();
+
+  const formHandler = {
+    alumnos: <Person closeModal={closeModal} mode={true} />,
+    profesores: <Person closeModal={closeModal} mode={false} />,
+    materias: <Materias />,
+    examenes: <Examenes />,
+  };
 
   // Verifica que el parametro de la url exista, en ese caso hace
   // el get de datos basandose en el parametro 'view'.
@@ -37,9 +44,17 @@ const Views = () => {
     }
   }, [state.current]);
 
+  useEffect(() => {
+    actions.getDocTypes();
+    actions.getTitles();
+  }, []);
+
   return (
     <>
-      <Modal title={'test'} />
+      <Modal
+        content={formHandler[view]}
+        title={`${state.current === null ? 'Agregar' : 'Editar'} `}
+      />
       <div className="flex flex-col">
         <h1 className="text-4xl font-semibold m-auto my-[4rem]">
           Listado de {title}
@@ -49,6 +64,7 @@ const Views = () => {
           bgHover={buttons.bgHover}
           styles={'mb-[4rem] m-auto'}
           text={buttons.create.text}
+          onClick={() => openModal()}
         />
         <Table columns={table.columns} data={state.itemlist} />
       </div>
