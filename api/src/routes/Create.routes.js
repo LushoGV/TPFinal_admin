@@ -9,7 +9,7 @@ router.post("/create/:table", async (req, res) => {
   const bool = await connectDb();
   console.log(req.body);
   console.log(req.params);
-  const { table } = req.params; //Alumnos, Profesores, Examenes, Materias
+  const { table } = req.params; 
 
   if (!TABLES.includes(table.toLowerCase())) {
     return res
@@ -38,7 +38,7 @@ router.post("/create/:table", async (req, res) => {
 export default router;
 
 const createQueryString = (table, body) => {
-  return `INSERT INTO View_${table} (${Object.keys(body).join(
+  return `INSERT INTO ${table} (${Object.keys(body).join(
     ", "
   )}) values(${Object.values(body).join(", ")})`;
 };
