@@ -38,7 +38,7 @@ router.post("/create/:table", async (req, res) => {
 export default router;
 
 const createQueryString = (table, body) => {
-  return `INSERT INTO ${table} (${Object.keys(body).join(
+  return `INSERT INTO View_${table} (${Object.keys(body).join(
     ", "
   )}) values(${Object.values(body).join(", ")})`;
 };

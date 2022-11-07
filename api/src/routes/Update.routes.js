@@ -32,7 +32,7 @@ router.put("/update/:table/:id", async (req, res) => {
 });
 
 const createQuery = (table, id, body) => {
-  let strQuery = `UPDATE ${table} SET`;
+  let strQuery = `UPDATE View_${table} SET`;
 
   let bodyArray = Object.entries(body);
   bodyArray.map((element) => {
