@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import { PartialRoutes, Routes } from '../../models';
 import { useNavigate } from '../../Hooks';
 
@@ -10,21 +12,27 @@ const MenuItems = [
 
 const Navbar = () => {
   const { go } = useNavigate();
+  const { pathname } = useLocation();
 
   return (
-    <div className="max-w-6xl m-auto flex">
-      <p className="flex-1">Testing</p>
-
-      <div>
-        {MenuItems.map((item) => (
-          <button
-            key={item.title}
-            className={'mx-2'}
-            onClick={() => go(item.url)}
-          >
-            {item.title}
-          </button>
-        ))}
+    <div className="p-6 border-b-2">
+      <div className="m-auto max-w-4xl flex">
+        <p className="flex-1 text-2xl font-semibold">
+          Planificador de Exámenes
+        </p>
+        <div className="flex items-center">
+          {MenuItems.map((item) => (
+            <button
+              key={item.title}
+              className={`mx-2 text-lg hover:underline
+                ${pathname === `/${item.url}` && 'underline'}
+              `}
+              onClick={() => go(item.url)}
+            >
+              {item.title}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

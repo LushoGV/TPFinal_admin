@@ -5,7 +5,7 @@ import routerUpdate from './routes/Update.routes.js'
 import routerDelete from './routes/Delete.routes.js'
 import cors from "cors";
 import "./database.js";
-import { connectDb } from "./database.js";
+
 const app = express();
 
 app.use(express.json());
@@ -17,5 +17,4 @@ app.use("/api/", routerDelete);
 
 app.listen(3000, () => {
   console.log("Prueba 3000");
-  connectDb();
 });

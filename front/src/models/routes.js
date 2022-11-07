@@ -1,5 +1,4 @@
 export const Routes = {
-  HOME: 'home',
   VIEWS: 'views',
 };
 
