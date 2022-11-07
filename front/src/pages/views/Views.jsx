@@ -1,33 +1,58 @@
 import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { AppUseContext } from '../../context';
-import { useNavigate } from '../../Hooks';
-import { PartialRoutes, Routes } from '../../models';
+import { Table } from '../../components';
+import { useAppContext } from '../../context';
+import { useModal, useNavigate } from '../../Hooks';
+import { PartialRoutes } from '../../models';
+import { Button } from '../../ui';
 
-import ViewSchema from './ViewSchema';
+import useViewSchema from './useViewSchema';
 
 const Views = () => {
-  const { state, actions } = AppUseContext();
+  const { state, actions } = useAppContext();
   const { view } = useParams();
   const { go } = useNavigate();
+  const { schemas } = useViewSchema();
+  const [Modal, openModal, closeModal] = useModal();
 
+  // Verifica que el parametro de la url exista, en ese caso hace
+  // el get de datos basandose en el parametro 'view'.
   useEffect(() => {
     if (Object.values(PartialRoutes).includes(view)) {
-      // actions.getItems(view);
+      actions.getItems(view);
     } else {
-      go(`/${Routes.HOME}`);
+      go('/');
     }
   }, [view]);
 
-  const viewData = useMemo(() => {
-    return ViewSchema.filter((schema) => schema.route === view)[0];
+  // Trae el esquema que le corresponde a cada vista.
+  const { title, buttons, table } = useMemo(() => {
+    return schemas.filter((schema) => schema.route === view)[0];
   }, [view]);
 
+  useEffect(() => {
+    if (state.current !== null) {
+      return openModal();
+    }
+  }, [state.current]);
+
   return (
-    <div>
-      <p>{viewData?.title}</p>
-    </div>
+    <>
+      <Modal title={'test'} />
+      <div className="flex flex-col">
+        <h1 className="text-4xl font-semibold m-auto my-[4rem]">
+          Listado de {title}
+        </h1>
+        <Button
+          bg={buttons.bg}
+          bgHover={buttons.bgHover}
+          styles={'mb-[4rem] m-auto'}
+          text={buttons.create.text}
+        />
+        <Table columns={table.columns} data={state.itemlist} />
+      </div>
+    </>
   );
 };
 
