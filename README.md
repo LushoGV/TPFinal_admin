@@ -7,12 +7,13 @@
 ### Ruta Read:
 * Metodo GET
 * URL:  /doctypes devuelve la tabla Tipo_doc <br /> /titles devuelve la tabla Titulos <br /> /read/{table} devuelve vistas 
-* table = alumnos || profesores ||materias || examenes (en todas las url q apareza {table} pueden ser estas 4)
+* table = alumnos || profesores ||materias || examenes || turnos
 	
  
 ### Ruta Create:
 * Metodo POST
 * URL: /create/{table}
+* table = alumnos || profesores ||materias || examenes (EN CREATE/UPDATE/DELETE SON LAS MISMAS 4 OPCIONES)
 * Los datos enviados en el body pueden tener cualquier orden (abarca las rutas create y update)
 * Respetar los tipos de datos mandados en el body, strings y fechas entre ''. (abarca las rutas create y update)
 * Formato de fecha 'año/mes/dia'
