@@ -1,6 +1,7 @@
 {
-  "name": "tp_final_backend",
+  "name": "TP_FINAL_BACKEND",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -17,6 +18,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  },
-  "description": ""
+  }
 }

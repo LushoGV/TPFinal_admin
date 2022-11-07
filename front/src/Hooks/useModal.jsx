@@ -2,12 +2,16 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useCallback, useRef, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
+import { useAppContext } from '../context';
+
 const useModal = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const { actions } = useAppContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   let focus = useRef(null);
 
   const closeModal = () => {
+    actions.setCurrent(null);
     setIsOpen(false);
   };
 
