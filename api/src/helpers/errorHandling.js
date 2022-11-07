@@ -18,6 +18,3 @@ const getErrorMessage = (code) => {
 };
 
 export default getErrorMessage;
-// "number": 2627, // pk repetido
-// 241 // formato fecha mal
-// 515 // dato obligatorio vacío

@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api/';
+const url = "http://localhost:3000/api";
 
 const api = {
   get: async (route) => {
@@ -13,9 +13,9 @@ const api = {
   post: async (route, data) => {
     try {
       const req = await fetch(`${url}/${route}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
