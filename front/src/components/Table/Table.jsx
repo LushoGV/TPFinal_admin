@@ -82,11 +82,11 @@ const Table = ({ data, columns }) => {
                         {column.isSorted ? (
                           column.isSortedDesc ? (
                             <span className="ml-1">
-                              <ArrowDownIcon />
+                              <ArrowDownIcon className="w-[1rem]" />
                             </span>
                           ) : (
                             <span className="ml-1">
-                              <ArrowUpIcon />
+                              <ArrowUpIcon className="w-[1rem]" />
                             </span>
                           )
                         ) : (
@@ -128,7 +128,7 @@ const Table = ({ data, columns }) => {
                               {...cell.getCellProps()}
                               className={'py-3'}
                             >
-                              <div className="flex min-w-[10rem] justify-end">
+                              <div className="flex min-w-[10rem]">
                                 {cell.render('Cell')}
                               </div>
                             </td>

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Formik, Form as FormikForm } from 'formik';
 import { useParams } from 'react-router-dom';
 
@@ -64,6 +65,9 @@ const Person = ({ mode, closeModal }) => {
         if (values.nro_doc !== '') {
           values.nro_doc = Number(values.nro_doc);
         }
+
+        values.fec_nac = dayjs(values.fec_nac).format('YYYY-MM-DD');
+
         if (mode) {
           values.nro_legajo_a = Number(values.nro_legajo_a);
         } else {
@@ -83,6 +87,7 @@ const Person = ({ mode, closeModal }) => {
         <FormikForm className="flex flex-col">
           {mode ? (
             <FormControl
+              disabled={current !== null}
               errors={
                 errors.nro_legajo_a && touched.nro_legajo_a
                   ? errors.nro_legajo_a
@@ -90,9 +95,11 @@ const Person = ({ mode, closeModal }) => {
               }
               label={'Nro. de legajo'}
               name={'nro_legajo_a'}
+              styles={current !== null && 'text-gray-300'}
             />
           ) : (
             <FormControl
+              disabled={current !== null}
               errors={
                 errors.nro_legajo_p && touched.nro_legajo_p
                   ? errors.nro_legajo_p
@@ -100,6 +107,7 @@ const Person = ({ mode, closeModal }) => {
               }
               label={'Nro. de legajo'}
               name={'nro_legajo_p'}
+              styles={current !== null && 'text-gray-300'}
             />
           )}
           <FormControl
@@ -177,7 +185,7 @@ const Person = ({ mode, closeModal }) => {
               }
               label={'Titulo'}
               name={'cod_titulo'}
-              options={parseSelect(titles, 'cod_titulo', 'desc_titulo')}
+              options={parseSelect(titles, 'COD_TITULOS', 'DESC_TITULO')}
             />
           )}
           <Button

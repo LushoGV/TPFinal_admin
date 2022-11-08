@@ -3,19 +3,21 @@ import { createContext, useContext } from 'react';
 
 import { normalizeText, parseTextRequest } from '../utilities';
 import { api } from '../services';
+import { PartialRoutes } from '../models';
 
 const MyContext = createContext();
 
 export const Provider = ({ children }) => {
   const [itemlist, setItemList] = useState([]);
-  const [error, setError] = useState(null);
-  const [toast, setToast] = useState(null);
+  const [toast, setToast] = useState({ message: null, status: null });
   const [current, setCurrent] = useState(null);
   const [doctype, setDocType] = useState([]);
   const [titles, setTitles] = useState([]);
 
   const getItems = async (view) => {
-    const { data, status } = await api.get(`read/${view}`);
+    const { data, status } = await api.get(
+      `${view !== PartialRoutes.COUNT_TURNOS ? `read/${view}` : `/${view}`}`
+    );
 
     if (status !== 200) {
       setError(data);
@@ -27,23 +29,30 @@ export const Provider = ({ children }) => {
   };
 
   const createItem = async (view, item) => {
-    const { data } = await api.post(`create/${view}`, parseTextRequest(item));
+    const { data } = await api.post(
+      `${
+        view !== PartialRoutes.EXAMENES ? `create/${view}` : `${view}/create`
+      }`,
+      parseTextRequest(item)
+    );
 
     console.log(data);
 
     if (data.status === 'ok') {
-      setToast({ message: data.message });
+      setToast({ message: data.message, status: 'ok' });
 
       getItems(view);
 
       return;
     }
-    setError({ message: data.message });
+    setToast({ message: data.message, status: 'error' });
   };
 
   const updateItem = async (view, item) => {
     const { data } = await api.put(
-      `update/${view}`,
+      `${
+        view !== PartialRoutes.EXAMENES ? `update/${view}` : `${view}/update`
+      }`,
       parseTextRequest(item),
       current.id
     );
@@ -51,29 +60,34 @@ export const Provider = ({ children }) => {
     console.log(data);
 
     if (data.status === 'ok') {
-      setToast({ message: data.message });
+      setToast({ message: data.message, status: 'ok' });
 
       getItems(view);
 
       return;
     }
-    setError({ message: data.message });
+    setToast({ message: data.message, status: 'error' });
   };
 
   const handleDelete = async (view, id) => {
-    const { data } = await api.delete(`delete/${view}`, id);
+    const { data } = await api.delete(
+      `${
+        view !== PartialRoutes.EXAMENES ? `delete/${view}` : `/${view}/delete`
+      }`,
+      id
+    );
 
     console.log(data);
 
     if (data.status === 'ok') {
-      setToast({ message: data.message });
+      setToast({ message: data.message, status: 'ok' });
 
       setCurrent(null);
       getItems(view);
 
       return;
     }
-    setError({ message: data.message });
+    setToast({ message: data.message, status: 'error' });
   };
 
   const getDocTypes = async () => {
@@ -96,11 +110,10 @@ export const Provider = ({ children }) => {
     }
   };
 
-  const state = { itemlist, error, current, doctype, titles, toast };
+  const state = { itemlist, current, doctype, titles, toast };
   const actions = {
     setToast,
     getItems,
-    setError,
     setCurrent,
     handleDelete,
     setItemList,

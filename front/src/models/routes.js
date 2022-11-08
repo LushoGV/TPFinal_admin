@@ -7,6 +7,8 @@ export const PartialRoutes = {
   PROFESORES: 'profesores',
   MATERIAS: 'materias',
   EXAMENES: 'examenes',
+  TURNOS: 'turnos',
+  COUNT_TURNOS: 'count_turnos',
 };
 
 export default Routes;

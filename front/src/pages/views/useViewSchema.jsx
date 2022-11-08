@@ -1,8 +1,12 @@
+import dayjs from 'dayjs';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppContext } from '../../context';
 import { PartialRoutes } from '../../models';
+import { api } from '../../services';
 import { Button } from '../../ui';
+import { normalizeText, parseDate } from '../../utilities';
 
 // Contiene la data correspondiente para cada view
 const useViewSchema = () => {
@@ -83,7 +87,7 @@ const useViewSchema = () => {
           { Header: 'Nombre y Apellido', accessor: 'ape_nomb' },
           { Header: 'Nro. Documento', accessor: 'nro_doc' },
           { Header: 'Email', accessor: 'email' },
-          { Header: 'Titulo', accessor: 'desc_titulo' },
+          { Header: 'Titulo', accessor: 'DESC_TITULO' },
           {
             Header: ' ',
             accessor: ' ',
@@ -211,7 +215,11 @@ const useViewSchema = () => {
                     onClick={() => {
                       actions.handleDelete(
                         view,
-                        `${dataRow.nro_legajo_a}&${dataRow.cod_materia}&${dataRow.cod_turno}`
+                        `legajo=${dataRow.nro_legajo_a}&materia=${
+                          dataRow.cod_mat
+                        }&turno=${dataRow.cod_turno}&fecha=${dayjs(
+                          dataRow.fecha_examen
+                        ).format('YYYY-MM-DD')}`
                       );
                     }}
                   />
@@ -222,13 +230,75 @@ const useViewSchema = () => {
                     text={'Editar'}
                     onClick={() => {
                       actions.setCurrent({
-                        id: `${dataRow.nro_legajo_a}&${dataRow.cod_materia}&${dataRow.cod_turno}`,
+                        id: `legajo=${dataRow.nro_legajo_a}&materia=${
+                          dataRow.cod_mat
+                        }&turno=${dataRow.cod_turno}&fecha=${dayjs(
+                          dataRow.fecha_examen
+                        ).format('YYYY-MM-DD')}`,
                         data: dataRow,
                       });
                     }}
                   />
                 </>
               );
+            },
+          },
+        ],
+      },
+    },
+    {
+      route: PartialRoutes.TURNOS,
+      title: 'Materia por Turno',
+      table: {
+        columns: [
+          { Header: 'Turno', accessor: 'desc_turno' },
+          { Header: 'Materia', accessor: 'desc_mat' },
+          { Header: 'Profesor', accessor: 'ape_nomb' },
+          {
+            Header: 'Fecha Examen',
+            accessor: 'fecha_examen',
+            Cell: (props) => {
+              const data = props.row.original;
+
+              if (data?.fecha_examen) {
+                return parseDate(data?.fecha_examen);
+              }
+            },
+          },
+        ],
+      },
+    },
+    {
+      route: PartialRoutes.COUNT_TURNOS,
+      title: 'Turnos',
+      table: {
+        columns: [
+          { Header: 'Turno', accessor: 'desc_turno' },
+          { Header: 'Cantidad de Inscriptos', accessor: 'Cantidad' },
+          {
+            Header: 'Porcentaje aprobados',
+            accessor: ' ',
+            Cell: (props) => {
+              const [number, setNumber] = useState(null);
+
+              (async () => {
+                const { data, status } = await api.get('read/turnos');
+
+                if (status !== 200) {
+                  return;
+                }
+
+                const a = props.row.original;
+
+                const filt = normalizeText(data).filter(
+                  (turno) =>
+                    turno.desc_turno === a.desc_turno && turno.nota >= 7
+                ).length;
+
+                setNumber(Math.round((filt / a.Cantidad) * 100));
+              })();
+
+              return !isNaN(number) ? <span>{number}%</span> : <span>0%</span>;
             },
           },
         ],
