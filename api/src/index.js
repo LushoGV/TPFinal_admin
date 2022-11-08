@@ -3,6 +3,7 @@ import routerCreate from "./routes/Create.routes.js";
 import routerRead from "./routes/Read.routes.js";
 import routerUpdate from './routes/Update.routes.js'
 import routerDelete from './routes/Delete.routes.js'
+import routerExamenes from './routes/Examenes.routes.js'
 import cors from "cors";
 import "./database.js";
 
@@ -14,6 +15,7 @@ app.use("/api/", routerCreate);
 app.use("/api/", routerRead);
 app.use("/api/", routerUpdate);
 app.use("/api/", routerDelete);
+app.use("/api/", routerExamenes);
 
 app.listen(3000, () => {
   console.log("Prueba 3000");
