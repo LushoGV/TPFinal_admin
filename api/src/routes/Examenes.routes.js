@@ -48,7 +48,7 @@ router.put("/examenes/update/legajo=:legajo&materia=:materia&turno=:turno&fecha=
 
     try {
         const result = await bool.query(
-          `${queryStringExamenes}; ${queryStringPlanificacion};`
+          `${queryStringPlanificacion}; ${queryStringExamenes};`
         );
         
         return res
@@ -99,6 +99,7 @@ const createQueryString = (table, body, operacion, params) => {
 
     let strQuery
 
+
     switch (operacion) {
         case "insert":
             strQuery= `INSERT INTO ${table} (`;
@@ -121,8 +122,6 @@ const createQueryString = (table, body, operacion, params) => {
         
 
         case "update":
-            let fechaUpdate = params.fecha.replaceAll('-','/')
-           
             strQuery = `UPDATE ${table} SET`;
 
             body.map((element) => {
@@ -132,16 +131,15 @@ const createQueryString = (table, body, operacion, params) => {
             strQuery = strQuery.slice(0, -1);
 
             if(table === 'Examenes') strQuery += ` WHERE  nro_legajo_a = ${params.legajo} AND cod_mat = '${params.materia}' AND cod_turno = '${params.turno}'`;
-            else strQuery += ` WHERE  cod_mat = '${params.materia}' AND cod_turno = '${params.turno}' AND fecha_examen = '${fechaUpdate}'`;
+            else strQuery += ` WHERE  fecha_examen = '${params.fecha}' AND cod_mat = '${params.materia}' AND cod_turno = '${params.turno}'`;
         
             return strQuery;
 
 
         case "delete":  
-            let fechaDelete = params.fecha.replaceAll('-','/')
             strQuery = `DELETE FROM ${table}`;
             if(table === 'Examenes') strQuery += ` WHERE  nro_legajo_a = ${params.legajo} AND cod_mat = '${params.materia}' AND cod_turno = '${params.turno}'`;
-            else strQuery += ` WHERE  cod_mat = '${params.materia}' AND cod_turno = '${params.turno}' AND fecha_examen = '${fechaDelete}'`;
+            else strQuery += ` WHERE  fecha_examen = '${params.fecha}' AND cod_mat = '${params.materia}' AND cod_turno = '${params.turno}'`;
             return strQuery;
     
         default:
