@@ -40,6 +40,12 @@ router.get("/titles", async (req, res) => {
   return res.status(200).json(result.recordset);
 });
 
+router.get("/turnos", async (req, res) => {
+  const bool = await connectDb();
+  const result = await bool.query(`select * from turnos`);
+  return res.status(200).json(result.recordset);
+});
+
 router.get("/count_turnos", async (req, res)=> {
   const bool = await connectDb()
   const result = await bool.query(`SELECT count(*) as 'Cantidad', desc_turno FROM View_turnos group by desc_turno`)
